@@ -16,6 +16,8 @@ import Shop from "@/pages/Shop";
 import Contact from "@/pages/Contact";
 import Privacy from "@/pages/Privacy";
 import Login from "@/pages/Login";
+import ForgotPassword from "@/pages/ForgotPassword";
+import ResetPassword from "@/pages/ResetPassword";
 import Members from "@/pages/Members";
 import MemberPost from "@/pages/MemberPost";
 
@@ -77,6 +79,8 @@ const Shell = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/members" element={<ProtectedRoute><Members /></ProtectedRoute>} />
             <Route path="/members/:postId" element={<ProtectedRoute><MemberPost /></ProtectedRoute>} />
           </Routes>

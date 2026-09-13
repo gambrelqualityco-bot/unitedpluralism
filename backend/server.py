@@ -466,6 +466,62 @@ async def refresh(request: Request, response: Response):
     return {"status": "refreshed"}
 
 
+class ForgotIn(BaseModel):
+    email: EmailStr
+
+
+class ResetIn(BaseModel):
+    token: str
+    password: str
+
+
+@api_router.post("/auth/forgot-password")
+async def forgot_password(input: ForgotIn):
+    email = str(input.email).lower()
+    member = await db.members.find_one({"email": email})
+    if member:
+        token = secrets.token_urlsafe(32)
+        await db.password_reset_tokens.insert_one({
+            "token": token,
+            "email": email,
+            "expires_at": datetime.now(timezone.utc) + timedelta(hours=1),
+            "used": False,
+        })
+        try:
+            reset_link = f"{SITE_URL}/reset-password?token={token}"
+            html = _email_shell(
+                f'<h2 style="margin:0 0 12px;font-size:20px;color:#0A192F">Reset your password</h2>'
+                f'<p style="margin:0 0 12px">We received a request to reset the password for the United '
+                f'Pluralism member account registered to this address. The link expires in one hour.</p>'
+                f'<p style="margin:0 0 12px"><a href="{escape(reset_link)}" '
+                f'style="color:#B45309;font-weight:600">Choose a new password</a></p>'
+                f'<p style="margin:0">If you did not request this, you can ignore this email — '
+                f'your sign-in stays the same.</p>')
+            await send_email(to=email, subject="Reset your United Pluralism password", html=html)
+        except Exception as e:
+            logger.error(f"Password reset email failed: {e}")
+    return {"status": "ok"}
+
+
+@api_router.post("/auth/reset-password")
+async def reset_password(input: ResetIn):
+    if len(input.password) < 8:
+        raise HTTPException(status_code=400, detail="Password must be at least 8 characters.")
+    rec = await db.password_reset_tokens.find_one({"token": input.token})
+    expired = True
+    if rec:
+        expires_at = rec["expires_at"]
+        if expires_at.tzinfo is None:
+            expires_at = expires_at.replace(tzinfo=timezone.utc)
+        expired = expires_at < datetime.now(timezone.utc)
+    if not rec or rec.get("used") or expired:
+        raise HTTPException(status_code=400, detail="This reset link is invalid or has expired. Request a new one.")
+    await db.members.update_one({"email": rec["email"]}, {"$set": {"password_hash": hash_password(input.password)}})
+    await db.password_reset_tokens.update_one({"token": input.token}, {"$set": {"used": True}})
+    await db.login_attempts.delete_many({"identifier": {"$regex": f":{re.escape(rec['email'])}$"}})
+    return {"status": "password_updated"}
+
+
 # ---- Member discussion board ----
 def post_public(doc: dict) -> dict:
     return {
@@ -547,6 +603,7 @@ async def startup():
     await db.login_attempts.create_index("identifier")
     await db.posts.create_index("created_at")
     await db.replies.create_index("post_id")
+    await db.password_reset_tokens.create_index("expires_at", expireAfterSeconds=0)
     admin_email = os.environ.get("ADMIN_EMAIL", "").lower()
     admin_password = os.environ.get("ADMIN_PASSWORD", "")
     if admin_email and admin_password:

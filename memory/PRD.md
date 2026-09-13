@@ -31,9 +31,12 @@ Exact covenant text + affirmation checkbox; exact membership intro and confirmat
 - Discussion board at /members (protected): categories "Local Communities & Gatherings" and "Questions & Discussion"; create posts, view threads, reply. Posts show author name + location to spark local chapters.
 - New /login page; navbar is auth-aware (Sign In vs member chip + sign out). Admin account seeded (info@unitedpluralism.org).
 
+## Implemented (2026-09-13, iteration 3)
+- Password reset flow: "Forgot password?" on the sign-in page → /forgot-password emails a single-use, one-hour reset link → /reset-password sets the new password and clears any login lockout. Neutral responses prevent account enumeration; reset tokens auto-expire in MongoDB.
+- Admin account password set per owner request (info@unitedpluralism.org).
+
 ## Backlog
 - P0: Point Shop links to the external Bonfire store URL (user to provide).
-- P1: Password reset flow (forgot-password endpoint exists in playbook, not built).
 - P1: Board moderation tools for admin (delete posts/replies).
 - P2: Member directory opt-in, Gathering RSVPs, email notifications for replies.
 
