@@ -1,0 +1,130 @@
+{
+  "project_name": "United Pluralism",
+  "app_type": "marketing_site",
+  "tone": "welcoming, thoughtful, open, dignified, forward-looking, editorial",
+  "color_palette": {
+    "primary_navy": "#0A192F",
+    "primary_navy_dark": "#050C1A",
+    "secondary_slate": "#475569",
+    "background_light": "#FAFBFD",
+    "card_bg_light": "#FFFFFF",
+    "accent_amber": "#D97706",
+    "accent_gold": "#F59E0B",
+    "accent_gold_subtle": "#FEF3C7",
+    "border_subtle": "#E2E8F0",
+    "text_main": "#0F172A",
+    "text_muted": "#64748B"
+  },
+  "typography": {
+    "font_family_heading": "Cormorant Garamond, Serif",
+    "font_family_body": "Plus Jakarta Sans, Inter, sans-serif",
+    "font_family_mono": "JetBrains Mono, monospace",
+    "font_weights": {
+      "heading": "font-light to font-semibold",
+      "body": "font-normal (400) and font-medium (500)",
+      "accent": "font-semibold (600)"
+    },
+    "hierarchy": {
+      "h1_hero": "text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-none font-serif",
+      "h2_section": "text-2xl sm:text-3xl lg:text-4xl tracking-tight font-serif",
+      "h3_sub": "text-xl sm:text-2xl font-serif",
+      "h4_card": "text-lg sm:text-xl font-medium",
+      "body": "text-base leading-relaxed text-slate-700",
+      "overline": "text-xs font-mono uppercase tracking-[0.2em] text-amber-700"
+    }
+  },
+  "layout_and_grid": {
+    "container_max_width": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+    "section_spacing": "py-20 lg:py-32",
+    "bento_grid_mode": "Tetris grid with 1px slate borders, subtle card elevations, asymmetric cards with generous internal padding (p-8 lg:p-12)",
+    "header_nav": "Sticky header with glassmorphism backdrop (backdrop-blur-xl bg-slate-900/90 or bg-white/90 border-b border-slate-200/50), z-50",
+    "hero_section": "Large kinetic hero with animated subtle particle/canvas background, masked text reveal, motto 'Coniuncti ad futurum' pill label, dual CTAs ('Join the Covenant', 'Explore Observances')"
+  },
+  "core_pages_structure": [
+    {
+      "page": "Home",
+      "path": "/",
+      "sections": [
+        "Hero Section with Logo, Motto ('Coniuncti ad futurum'), kinetic title reveal, guiding statement, Join / Explore buttons",
+        "Editorial Marquee Banner (Slow scrolling values & guiding phrases)",
+        "Core Principles (Bento Grid: Mutual Care, Ethical Responsibility, Pluralist Reflection, Universal Inclusion)",
+        "Community Overview & Impact Highlights (Interactive tabbed overview)",
+        "Numbered Manifesto Chapter Teaser",
+        "CTA Banner ('Walk With Us into the Future')"
+      ]
+    },
+    {
+      "page": "About & Values",
+      "path": "/about",
+      "sections": [
+        "United Pluralist Covenant (Full manifesto split into 4 numbered chapters with expandable insights)",
+        "Layered Affiliations & Inter-Belief Ecosystem Diagram",
+        "Ethical Commitments (Human dignity, Ecological stewardship, Civic truth, Compassionate action)"
+      ]
+    },
+    {
+      "page": "Observances & Holidays",
+      "path": "/observances",
+      "sections": [
+        "Three Calendar Pillars Introduction",
+        "Shalaria: Season of Dusk (Oct 1 – Nov 2) spotlight & meditative rituals",
+        "Charisel: Season of Giving (Dec 1 – Jan 1) spotlight & community outreach guide",
+        "Interactive Communal Calendar with filtering (Solstices, Community Feasts, Reflective Vigils, Global Harmony Days)"
+      ]
+    },
+    {
+      "page": "Free Membership Registration",
+      "path": "/membership",
+      "sections": [
+        "Interactive Membership Form",
+        "Full Covenant Text preview with explicit checkbox acceptance",
+        "Personal details (Name, Email, Region/Chapter, Interests)",
+        "Instant confirmation state with email notification trigger simulation"
+      ]
+    },
+    {
+      "page": "Shop",
+      "path": "/shop",
+      "sections": [
+        "Editorial Product Photography Layout",
+        "4 Placeholder Products: Pluralist Companion Journal, Brass Dusk Candle Holder, Woven Community Tote, Ceramic Evening Mug",
+        "Functional Cart Drawer/Modal with add/remove/quantity and total calculation"
+      ]
+    },
+    {
+      "page": "Contact & Gatherings",
+      "path": "/contact",
+      "sections": [
+        "Upcoming Local & Virtual Gatherings Schedule",
+        "Contact & Enquiry Form sending data to backend endpoint (/api/contact & /api/register)",
+        "Interactive FAQ Accordion"
+      ]
+    }
+  ],
+  "image_urls": {
+    "hero_community": "https://images.unsplash.com/photo-1528605248644-14dd04022da1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwzfHxkaXZlcnNlJTIwY29tbXVuaXR5JTIwZ2F0aGVyaW5nJTIwbGF1Z2hpbmclMjBkaW5uZXJ8ZW58MHx8fHwxNzg5MzEyNzE2fDA&ixlib=rb-4.1.0&q=85",
+    "hero_community_alt": "https://images.unsplash.com/photo-1681641095463-b4d3693a0ee3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwyfHxkaXZlcnNlJTIwY29tbXVuaXR5JTIwZ2F0aGVyaW5nJTIwbGF1Z2hpbmclMjBkaW5uZXJ8ZW58MHx8fHwxNzg5MzEyNzE2fDA&ixlib=rb-4.1.0&q=85",
+    "nature_twilight_path": "https://images.unsplash.com/photo-1758220586042-b2d0f4aa17de?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHwyfHxzZXJlbmUlMjB0d2lsaWdodCUyMHNreSUyMGZvcmVzdCUyMHBhdGglMjBzdW5zZXR8ZW58MHx8fHwxNzg5MzEyNzE2fDA&ixlib=rb-4.1.0&q=85",
+    "nature_boardwalk": "https://images.unsplash.com/photo-1758220585221-2704093d89e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHw0fHxzZXJlbmUlMjB0d2lsaWdodCUyMHNreSUyMGZvcmVzdCUyMHBhdGglMjBzdW5zZXR8ZW58MHx8fHwxNzg5MzEyNzE2fDA&ixlib=rb-4.1.0&q=85",
+    "shop_journal_candle": "https://images.unsplash.com/photo-1651944818385-6fff2d529516?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwY2VyYW1pYyUyMG11ZyUyMGxpbmVuJTIwdG90ZSUyMG5vdGVib29rJTIwYm9vayUyMGNhbmRsZXxlbnwwfHx8fDE3ODkzMTI3MTZ8MA&ixlib=rb-4.1.0&q=85",
+    "shop_ceramic_mug": "https://images.unsplash.com/photo-1585852365670-8bc0eda62bea?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwY2VyYW1pYyUyMG11ZyUyMGxpbmVuJTIwdG90ZSUyMG5vdGVib29rJTIwYm9vayUyMGNhbmRsZXxlbnwwfHx8fDE3ODkzMTI3MTZ8MA&ixlib=rb-4.1.0&q=85",
+    "shop_book_candle": "https://images.unsplash.com/photo-1638657527755-ca3e0d217260?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwY2VyYW1pYyUyMG11ZyUyMGxpbmVuJTIwdG90ZSUyMG5vdGVib29rJTIwYm9vayUyMGNhbmRsZXxlbnwwfHx8fDE3ODkzMTI3MTZ8MA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "Ensure exact multi-page routing with React Router v7 across Home (/), About (/about), Observances (/observances), Membership (/membership), Shop (/shop), and Contact (/contact).",
+    "Add explicit data-testid attributes to all key buttons, inputs, navigation links, cards, and modal triggers.",
+    "Include an interactive functional cart drawer state saved to React state / localStorage for the Shop page.",
+    "Use Lucide-react or Radix icons for clean visual indicators.",
+    "Form submit handlers should send POST payload to FastAPI backend (/api/register and /api/contact) and display a clear success Sonner toast notification.",
+    "Strictly follow high-contrast WCAG rules using Deep Navy (#0A192F), Crisp White (#FFFFFF), Warm Amber (#D97706), and Slate Gray (#475569).",
+    "Hero section must include an SVG/Canvas official emblem logo with deep navy and amber accents, motto 'Coniuncti ad futurum', and kinetic entrance effect.",
+    "No deity figures, altars, or denomination symbols. All images must feature diverse people collaborating, sharing meals, or quiet natural landscapes."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Do NOT use dark gradients over dark text. Maintain maximum text legibility.",
+    "Avoid generic centered layouts; use asymmetric editorial bento grids and layered typography.",
+    "Ensure every interactive element has explicit hover/active states.",
+    "Containers with borders must have internal padding (p-6 or p-8 minimum).",
+    "Include data-testid on all interactive elements in kebab-case format."
+  ]
+}
