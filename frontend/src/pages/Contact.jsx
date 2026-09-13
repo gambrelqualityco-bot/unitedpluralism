@@ -2,9 +2,12 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import { Loader2, Video, MapPin, Music, BookOpen, MessagesSquare, HandHeart, Mail } from "lucide-react";
-import { Reveal, MaskedLine } from "../components/Reveal";
+import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2000&auto=format&fit=crop";
 
 const GATHERING_ELEMENTS = [
   { icon: BookOpen, label: "Readings" },
@@ -35,20 +38,17 @@ const Contact = () => {
 
   return (
     <div data-testid="contact-page">
-      <section className="relative bg-navy-950 grain overflow-hidden">
-        <div className="absolute -top-32 left-1/4 h-96 w-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-24">
-          <MaskedLine delay={0.1}>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Contact &amp; Gatherings</p>
+      <PageHero image={HERO_IMG}>
+        <MaskedLine delay={0.1}>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Contact &amp; Gatherings</p>
+        </MaskedLine>
+        <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
+          <MaskedLine delay={0.25}>Come as you are.</MaskedLine>
+          <MaskedLine delay={0.37}>
+            <span className="italic text-gold-light">Gather with us.</span>
           </MaskedLine>
-          <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
-            <MaskedLine delay={0.25}>Come as you are.</MaskedLine>
-            <MaskedLine delay={0.37}>
-              <span className="italic text-gold-light">Gather with us.</span>
-            </MaskedLine>
-          </h1>
-        </div>
-      </section>
+        </h1>
+      </PageHero>
 
       {/* GATHERINGS */}
       <section className="py-20 lg:py-28" data-testid="gatherings-section">
@@ -61,7 +61,7 @@ const Contact = () => {
                   Readings, reflection, music, dialogue, and service
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-slate-600">
-                  Gatherings are the heartbeat of United Pluralism — regular meetings, both virtual and local, where
+                  Gatherings are the heartbeat of United Pluralism: regular meetings, both virtual and local, where
                   members reflect, celebrate, learn, and serve together. Wisdom is drawn from many sources:
                   religious texts, philosophy, science, poetry, and lived experience. No Gathering requires a
                   profession of belief.
@@ -83,7 +83,7 @@ const Contact = () => {
                   <Video className="h-6 w-6 text-gold" />
                   <h3 className="mt-4 font-serif text-xl font-semibold text-navy">Virtual Gatherings</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                    Weekly online Gatherings open to members everywhere — readings, guided reflection, and open
+                    Weekly online Gatherings open to members everywhere, with readings, guided reflection, and open
                     dialogue across time zones.
                   </p>
                 </div>
@@ -102,7 +102,7 @@ const Contact = () => {
                 <div className="rounded-2xl border border-amber-200 bg-gold-pale/60 p-7" data-testid="ceremonies-card">
                   <h3 className="font-serif text-xl font-semibold text-navy">Ceremonies &amp; milestones</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-700">
-                    United Pluralism marks meaningful human transitions with personalized ceremonies — welcomings,
+                    United Pluralism marks meaningful human transitions with personalized ceremonies: welcomings,
                     life milestones, and memorials that respect the beliefs of those they honor. Use the form below
                     and choose &ldquo;Ceremony request.&rdquo;
                   </p>
@@ -121,7 +121,7 @@ const Contact = () => {
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">Reach out</p>
               <h2 className="mt-4 font-serif text-3xl sm:text-4xl tracking-tight text-navy">We would love to hear from you</h2>
               <p className="mt-5 text-base leading-relaxed text-slate-600">
-                Questions about the community, requests for support, or ceremony inquiries — every message reaches
+                Questions about the community, requests for support, or ceremony inquiries: every message reaches
                 a real person.
               </p>
               <a

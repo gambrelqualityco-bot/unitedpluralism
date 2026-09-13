@@ -1,23 +1,23 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, Store } from "lucide-react";
-import { Reveal, MaskedLine } from "../components/Reveal";
+import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=2000&auto=format&fit=crop";
 
 const Shop = () => (
   <div data-testid="shop-page">
-    <section className="relative bg-navy-950 grain overflow-hidden">
-      <div className="absolute -top-32 right-1/3 h-96 w-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-24">
-        <MaskedLine delay={0.1}>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">The Shop</p>
+    <PageHero image={HERO_IMG}>
+      <MaskedLine delay={0.1}>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">The Shop</p>
+      </MaskedLine>
+      <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
+        <MaskedLine delay={0.25}>Merchandise is moving</MaskedLine>
+        <MaskedLine delay={0.37}>
+          <span className="italic text-gold-light">to a new home.</span>
         </MaskedLine>
-        <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
-          <MaskedLine delay={0.25}>Merchandise is moving</MaskedLine>
-          <MaskedLine delay={0.37}>
-            <span className="italic text-gold-light">to a new home.</span>
-          </MaskedLine>
-        </h1>
-      </div>
-    </section>
+      </h1>
+    </PageHero>
 
     <section className="py-20 lg:py-28">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -28,7 +28,7 @@ const Shop = () => (
             Our storefront opens soon
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-600" data-testid="shop-notice-text">
-            United Pluralism merchandise — apparel, drinkware, and goods for a shared life — will be available
+            United Pluralism merchandise, from apparel and drinkware to goods for a shared life, will be available
             through our dedicated external store. The link will live here as soon as the storefront opens.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">

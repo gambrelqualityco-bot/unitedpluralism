@@ -40,6 +40,10 @@ Exact covenant text + affirmation checkbox; exact membership intro and confirmat
 - Replaced red-painted-hands Community Action image (read as "blood") with volunteers packing food; Charisel image swapped from big-event volunteers to a person offering a hand-wrapped gift, plus new copy that giving needs no grand event.
 - Admin account enabled with real powers: role=admin sees an Admin badge and can remove discussions (with replies) and individual replies (DELETE /api/posts/{id}, DELETE /api/replies/{id}, 403 for non-admins). Reply counts stay consistent.
 
+## Implemented (2026-09-13, iteration 5)
+- Every navy page header now has a full-bleed photo backdrop (slow zoom-in on load, navy scrim for legibility) via a shared PageHero component. Images per page: About = diverse discussion group, Observances = star field, Membership = sunlit mountain valley, Contact = friends arm-in-arm at the shore, Shop = journals, Login/Forgot/Reset = sunlit forest path, Privacy = misty forest, Members = dusk mountains above clouds. Home hero unchanged.
+- Removed every em dash from all user-facing copy (pages, placeholders, emails), rephrasing with colons, commas, or periods while keeping meaning. Compact date ranges keep en dashes (e.g. "Oct 1 – Nov 2"); motto pill now uses a middle dot separator.
+
 ## Backlog
 - P0: Point Shop links to the external Bonfire store URL (user to provide).
 - P1: Reply notifications by email; member directory opt-in; Gathering RSVPs.

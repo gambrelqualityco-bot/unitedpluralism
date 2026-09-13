@@ -4,8 +4,11 @@ import axios from "axios";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, Loader2, ArrowRight, RefreshCw } from "lucide-react";
-import { Reveal, MaskedLine } from "../components/Reveal";
+import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
 import { API, useAuth, formatApiError } from "../context/AuthContext";
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=2000&auto=format&fit=crop";
 
 const COVENANT =
   "I affirm the inherent dignity of every person. I respect the bodily autonomy and conscience of others as I ask them to respect mine. I will seek truth honestly and remain willing to learn. I will allow greater knowledge and compassion to change my understanding. I will strive to choose compassion over cruelty and justice over indifference. I will respect human diversity and reject hierarchies of human worth. I will give when I have abundance and receive without shame when I have need. I will care for the living world we share. I will remember those who came before me. I will consider those who will come after me. I will defend the freedom of others to seek meaning differently from me, including the freedom to live without religion. I will work toward a world in which more people are free to flourish. I will remain mindful that I may be wrong and willing to grow when greater understanding requires it. I join others not because our beliefs are identical, but because our humanity is shared.";
@@ -79,35 +82,32 @@ const Membership = () => {
 
   return (
     <div data-testid="membership-page">
-      <section className="relative bg-navy-950 grain overflow-hidden">
-        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-24">
-          <MaskedLine delay={0.1}>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Free Membership</p>
+      <PageHero image={HERO_IMG}>
+        <MaskedLine delay={0.1}>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Free Membership</p>
+        </MaskedLine>
+        <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
+          <MaskedLine delay={0.25}>Join the United Pluralist</MaskedLine>
+          <MaskedLine delay={0.37}>
+            <span className="italic text-gold-light">Community</span>
           </MaskedLine>
-          <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
-            <MaskedLine delay={0.25}>Join the United Pluralist</MaskedLine>
-            <MaskedLine delay={0.37}>
-              <span className="italic text-gold-light">Community</span>
-            </MaskedLine>
-          </h1>
-          <Reveal delay={0.55}>
-            <p className="mt-7 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-300" data-testid="membership-intro">
-              Membership in United Pluralism is free and open to all. It does not require belief in God, gods,
-              spirits, an afterlife, or any supernatural claim, nor does it require the rejection of such beliefs.
-              You may retain other religious or philosophical affiliations. Belonging is based on sincere
-              participation in our shared values, not on passing a doctrinal test.
-            </p>
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
-              Joining creates your sign-in for the member community, where members form local groups, plan
-              celebrations, and talk together. Already joined?{" "}
-              <Link to="/login" data-testid="membership-signin-link" className="font-semibold text-gold-light hover:text-gold">
-                Sign in here.
-              </Link>
-            </p>
-          </Reveal>
-        </div>
-      </section>
+        </h1>
+        <Reveal delay={0.55}>
+          <p className="mt-7 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-100" data-testid="membership-intro">
+            Membership in United Pluralism is free and open to all. It does not require belief in God, gods,
+            spirits, an afterlife, or any supernatural claim, nor does it require the rejection of such beliefs.
+            You may retain other religious or philosophical affiliations. Belonging is based on sincere
+            participation in our shared values, not on passing a doctrinal test.
+          </p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-200">
+            Joining creates your sign-in for the member community, where members form local groups, plan
+            celebrations, and talk together. Already joined?{" "}
+            <Link to="/login" data-testid="membership-signin-link" className="font-semibold text-gold-light hover:text-gold">
+              Sign in here.
+            </Link>
+          </p>
+        </Reveal>
+      </PageHero>
 
       <section className="py-16 lg:py-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -250,7 +250,7 @@ const Membership = () => {
 
                 <div className="mt-6">
                   <label htmlFor="captcha-answer" className="block text-sm font-semibold text-navy">
-                    Quick spam check — {captcha ? captcha.question : "loading…"}
+                    Quick spam check: {captcha ? captcha.question : "loading…"}
                   </label>
                   <div className="mt-2 flex items-center gap-3">
                     <input

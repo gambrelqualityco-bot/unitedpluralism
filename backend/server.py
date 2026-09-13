@@ -495,7 +495,7 @@ async def forgot_password(input: ForgotIn):
                 f'Pluralism member account registered to this address. The link expires in one hour.</p>'
                 f'<p style="margin:0 0 12px"><a href="{escape(reset_link)}" '
                 f'style="color:#B45309;font-weight:600">Choose a new password</a></p>'
-                f'<p style="margin:0">If you did not request this, you can ignore this email — '
+                f'<p style="margin:0">If you did not request this, you can ignore this email. '
                 f'your sign-in stays the same.</p>')
             await send_email(to=email, subject="Reset your United Pluralism password", html=html)
         except Exception as e:

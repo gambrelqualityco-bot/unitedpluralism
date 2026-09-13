@@ -5,6 +5,10 @@ import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
 import { Loader2, MapPin, MessageSquare, Plus, Users, Sparkles, HelpCircle, Trash2 } from "lucide-react";
 import { API, useAuth, formatApiError } from "../context/AuthContext";
+import { PageHero } from "../components/Reveal";
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2000&auto=format&fit=crop";
 
 const CATEGORIES = [
   { id: "all", label: "All Discussions" },
@@ -73,35 +77,32 @@ const Members = () => {
 
   return (
     <div data-testid="members-page">
-      <section className="relative bg-navy-950 grain overflow-hidden">
-        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-16 lg:pt-44 lg:pb-20">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Member Community</p>
-          <h1 className="mt-4 font-serif text-4xl sm:text-5xl tracking-tight text-white" data-testid="members-welcome">
-            Welcome, <span className="italic text-gold-light">{user.first_name}.</span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-300">
-            This is our shared square. Find members near you and form local communities, organize Gatherings and
-            celebrations for your area, or simply ask questions and talk.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            {[
-              { icon: Users, label: "Form local communities" },
-              { icon: Sparkles, label: "Organize celebrations" },
-              { icon: HelpCircle, label: "Questions & discussion" },
-            ].map((c) => (
-              <span key={c.label} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-slate-200">
-                <c.icon className="h-3.5 w-3.5 text-gold-light" /> {c.label}
-              </span>
-            ))}
-            {isAdmin && (
-              <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-xs font-semibold text-gold-light" data-testid="admin-badge">
-                Admin
-              </span>
-            )}
-          </div>
+      <PageHero image={HERO_IMG}>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Member Community</p>
+        <h1 className="mt-4 font-serif text-4xl sm:text-5xl tracking-tight text-white" data-testid="members-welcome">
+          Welcome, <span className="italic text-gold-light">{user.first_name}.</span>
+        </h1>
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-slate-100">
+          This is our shared square. Find members near you and form local communities, organize Gatherings and
+          celebrations for your area, or simply ask questions and talk.
+        </p>
+        <div className="mt-7 flex flex-wrap gap-3">
+          {[
+            { icon: Users, label: "Form local communities" },
+            { icon: Sparkles, label: "Organize celebrations" },
+            { icon: HelpCircle, label: "Questions & discussion" },
+          ].map((c) => (
+            <span key={c.label} className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium text-slate-200">
+              <c.icon className="h-3.5 w-3.5 text-gold-light" /> {c.label}
+            </span>
+          ))}
+          {isAdmin && (
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-xs font-semibold text-gold-light" data-testid="admin-badge">
+              Admin
+            </span>
+          )}
         </div>
-      </section>
+      </PageHero>
 
       <section className="py-14 lg:py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,7 +148,7 @@ const Members = () => {
                   value={form.title}
                   onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}
                   className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
-                  placeholder="Title — e.g. Members in Portland?"
+                  placeholder="Title, e.g. Members in Portland?"
                 />
                 <select
                   data-testid="new-post-category"
@@ -188,7 +189,7 @@ const Members = () => {
               <div className="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center" data-testid="posts-empty">
                 <MessageSquare className="mx-auto h-8 w-8 text-slate-300" />
                 <p className="mt-4 font-serif text-xl text-navy">No discussions here yet.</p>
-                <p className="mt-1 text-sm text-slate-500">Be the first — introduce yourself and where you live.</p>
+                <p className="mt-1 text-sm text-slate-500">Be the first: introduce yourself and where you live.</p>
               </div>
             ) : (
               posts.map((p) => (

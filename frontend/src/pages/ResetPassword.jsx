@@ -3,7 +3,10 @@ import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { Loader2, CheckCircle2 } from "lucide-react";
 import { API, formatApiError } from "../context/AuthContext";
-import { Reveal, MaskedLine } from "../components/Reveal";
+import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2000&auto=format&fit=crop";
 
 const ResetPassword = () => {
   const [params] = useSearchParams();
@@ -33,20 +36,17 @@ const ResetPassword = () => {
 
   return (
     <div data-testid="reset-password-page">
-      <section className="relative bg-navy-950 grain overflow-hidden">
-        <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-20 lg:pt-44 lg:pb-24">
-          <MaskedLine delay={0.1}>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Member Community</p>
+      <PageHero image={HERO_IMG}>
+        <MaskedLine delay={0.1}>
+          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Member Community</p>
+        </MaskedLine>
+        <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
+          <MaskedLine delay={0.25}>Choose a new</MaskedLine>
+          <MaskedLine delay={0.37}>
+            <span className="italic text-gold-light">password.</span>
           </MaskedLine>
-          <h1 className="mt-5 font-serif text-4xl sm:text-5xl lg:text-6xl tracking-tight text-white max-w-3xl leading-[1.05]">
-            <MaskedLine delay={0.25}>Choose a new</MaskedLine>
-            <MaskedLine delay={0.37}>
-              <span className="italic text-gold-light">password.</span>
-            </MaskedLine>
-          </h1>
-        </div>
-      </section>
+        </h1>
+      </PageHero>
 
       <section className="py-16 lg:py-24">
         <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">

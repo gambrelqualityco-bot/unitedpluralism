@@ -1,17 +1,18 @@
-import { Reveal, MaskedLine } from "../components/Reveal";
+import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
+
+const HERO_IMG =
+  "https://images.unsplash.com/photo-1448375240586-882707db888b?q=80&w=2000&auto=format&fit=crop";
 
 const Privacy = () => (
   <div data-testid="privacy-page">
-    <section className="relative bg-navy-950 grain overflow-hidden">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-36 pb-16 lg:pt-44 lg:pb-20">
-        <MaskedLine delay={0.1}>
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Privacy Policy</p>
-        </MaskedLine>
-        <h1 className="mt-5 font-serif text-4xl sm:text-5xl tracking-tight text-white leading-[1.05]">
-          <MaskedLine delay={0.25}>Your information, treated with dignity.</MaskedLine>
-        </h1>
-      </div>
-    </section>
+    <PageHero image={HERO_IMG}>
+      <MaskedLine delay={0.1}>
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold-light">Privacy Policy</p>
+      </MaskedLine>
+      <h1 className="mt-5 font-serif text-4xl sm:text-5xl tracking-tight text-white leading-[1.05] max-w-3xl">
+        <MaskedLine delay={0.25}>Your information, treated with dignity.</MaskedLine>
+      </h1>
+    </PageHero>
 
     <section className="py-16 lg:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
@@ -20,7 +21,7 @@ const Privacy = () => (
             <h2 className="font-serif text-2xl font-semibold text-navy">What we collect</h2>
             <p className="mt-3 text-base leading-relaxed text-slate-600">
               When you join United Pluralism or contact us, we collect only what you give us directly: your name,
-              email address, and — if you choose to share it — your general location. Shopping carts are stored
+              email address, and (if you choose to share it) your general location. Shopping carts are stored
               only on your own device.
             </p>
           </div>
@@ -43,7 +44,7 @@ const Privacy = () => (
               <a href="mailto:info@unitedpluralism.org" className="text-gold font-medium hover:underline">
                 info@unitedpluralism.org
               </a>{" "}
-              and we will honor your request — your conscience, and your data, belong to you.
+              and we will honor your request. Your conscience, and your data, belong to you.
             </p>
           </div>
         </Reveal>

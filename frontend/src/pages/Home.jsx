@@ -30,7 +30,7 @@ const PRINCIPLES = [
   {
     icon: BookOpen,
     title: "Living Understanding",
-    text: "Human understanding is unfinished. We let greater knowledge and compassion change us — that is growth, not betrayal.",
+    text: "Human understanding is unfinished. We let greater knowledge and compassion change us. That is growth, not betrayal.",
   },
   {
     icon: Leaf,
@@ -40,7 +40,7 @@ const PRINCIPLES = [
   {
     icon: Flame,
     title: "Freedom of Conscience",
-    text: "The freedom to seek meaning — through any faith, many faiths, or none at all — belongs to every person.",
+    text: "The freedom to seek meaning, through any faith, many faiths, or none at all, belongs to every person.",
   },
 ];
 
@@ -48,7 +48,7 @@ const COMMUNITY = [
   {
     num: "01",
     title: "Gatherings",
-    text: "Local community groups organize and schedule their own Gatherings — the shape and content are entirely in each community's hands, from readings and music to dialogue and service, as long as they honor the values of United Pluralism. Connect in the member community to find others near you and put together one-time or regular Gatherings.",
+    text: "Local community groups organize and schedule their own Gatherings. The shape and content are entirely in each community's hands, from readings and music to dialogue and service, as long as they honor the values of United Pluralism. Connect in the member community to find others near you and put together one-time or regular Gatherings.",
     img: "https://images.unsplash.com/photo-1543807535-eceef0bc6599?q=80&w=1200&auto=format&fit=crop",
     alt: "Friends laughing together at a community gathering",
   },
@@ -62,7 +62,7 @@ const COMMUNITY = [
   {
     num: "03",
     title: "Community Action",
-    text: "Service, generosity, and care for the lonely — our values practiced in the world, not only spoken within it.",
+    text: "Service, generosity, and care for the lonely: our values practiced in the world, not only spoken within it.",
     img: "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1200&auto=format&fit=crop",
     alt: "Volunteers packing and sharing food donations together",
   },
@@ -102,7 +102,7 @@ const Home = () => {
                 data-testid="hero-motto"
                 className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-navy-950/40 backdrop-blur px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold-light"
               >
-                Coniuncti ad futurum — United toward the future
+                Coniuncti ad futurum · United toward the future
               </span>
             </MaskedLine>
           </div>
@@ -282,7 +282,7 @@ const Home = () => {
                     Walk with us into the future
                   </h2>
                   <p className="mt-4 text-slate-300 text-sm sm:text-base leading-relaxed">
-                    Join officially as a member — free, open, and without any test of belief — or explore the
+                    Join officially as a member, free and open with no test of belief, or explore the
                     seasons and observances that shape our shared year.
                   </p>
                 </div>
