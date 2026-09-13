@@ -101,13 +101,13 @@ const Observances = () => {
       <section className="relative overflow-hidden bg-navy-950 grain py-20 lg:py-32" data-testid="shalaria-section">
         <div className="absolute inset-0 pointer-events-none">
           <img
-            src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1508361001413-7a9dca21d08a?q=80&w=2000&auto=format&fit=crop"
             alt=""
             aria-hidden="true"
             loading="lazy"
-            className="h-full w-full object-cover opacity-25"
+            className="h-full w-full object-cover opacity-40"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-950/70 to-navy-950" />
+          <div className="absolute inset-0 bg-gradient-to-b from-navy-950 via-navy-950/60 to-navy-950" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6">
@@ -122,6 +122,11 @@ const Observances = () => {
                 As the year darkens, Shalaria turns us toward reflection and memory. It is a season for honoring
                 those who came before us, sitting honestly with mortality, and keeping hope alight through the
                 dimming days, culminating in Remembrance Night on November 2.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-slate-200">
+                Shalaria shares this time of year with observances such as Halloween and Día de los Muertos. It
+                draws on their dark-season themes of memory and mortality while creating something of its own: no
+                borrowed rituals, only the shared human instinct to kindle light against the dark.
               </p>
               <p className="mt-4 text-base leading-relaxed text-slate-200">
                 Through the season, members kindle the seven commitments of light, one for each week and one to

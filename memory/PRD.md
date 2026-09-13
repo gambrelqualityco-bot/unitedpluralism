@@ -44,6 +44,9 @@ Exact covenant text + affirmation checkbox; exact membership intro and confirmat
 - Every navy page header now has a full-bleed photo backdrop (slow zoom-in on load, navy scrim for legibility) via a shared PageHero component. Images per page: About = diverse discussion group, Observances = star field, Membership = sunlit mountain valley, Contact = friends arm-in-arm at the shore, Shop = journals, Login/Forgot/Reset = sunlit forest path, Privacy = misty forest, Members = dusk mountains above clouds. Home hero unchanged.
 - Removed every em dash from all user-facing copy (pages, placeholders, emails), rephrasing with colons, commas, or periods while keeping meaning. Compact date ranges keep en dashes (e.g. "Oct 1 – Nov 2"); motto pill now uses a middle dot separator.
 
+## Implemented (2026-09-13, iteration 6)
+- Shalaria section background is now glowing jack-o'-lanterns in darkness (Halloween-like warmth, no culture-specific symbols), with new copy acknowledging the season's kinship with Halloween and Día de los Muertos while noting no rituals are borrowed.
+
 ## Backlog
 - P0: Point Shop links to the external Bonfire store URL (user to provide).
 - P1: Reply notifications by email; member directory opt-in; Gathering RSVPs.
