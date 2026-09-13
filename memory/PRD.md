@@ -35,9 +35,14 @@ Exact covenant text + affirmation checkbox; exact membership intro and confirmat
 - Password reset flow: "Forgot password?" on the sign-in page → /forgot-password emails a single-use, one-hour reset link → /reset-password sets the new password and clears any login lockout. Neutral responses prevent account enumeration; reset tokens auto-expire in MongoDB.
 - Admin account password set per owner request (info@unitedpluralism.org).
 
+## Implemented (2026-09-13, iteration 4)
+- Home "Gatherings" card now explains local groups organize/schedule their own Gatherings, control their content within UP values, and connect via the member community for one-time or regular gatherings.
+- Replaced red-painted-hands Community Action image (read as "blood") with volunteers packing food; Charisel image swapped from big-event volunteers to a person offering a hand-wrapped gift, plus new copy that giving needs no grand event.
+- Admin account enabled with real powers: role=admin sees an Admin badge and can remove discussions (with replies) and individual replies (DELETE /api/posts/{id}, DELETE /api/replies/{id}, 403 for non-admins). Reply counts stay consistent.
+
 ## Backlog
 - P0: Point Shop links to the external Bonfire store URL (user to provide).
-- P1: Board moderation tools for admin (delete posts/replies).
+- P1: Reply notifications by email; member directory opt-in; Gathering RSVPs.
 - P2: Member directory opt-in, Gathering RSVPs, email notifications for replies.
 
 ## Next Tasks

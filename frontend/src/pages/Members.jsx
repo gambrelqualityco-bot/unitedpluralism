@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
-import { Loader2, MapPin, MessageSquare, Plus, Users, Sparkles, HelpCircle } from "lucide-react";
+import { Loader2, MapPin, MessageSquare, Plus, Users, Sparkles, HelpCircle, Trash2 } from "lucide-react";
 import { API, useAuth, formatApiError } from "../context/AuthContext";
 
 const CATEGORIES = [
@@ -21,6 +21,7 @@ const Members = () => {
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({ title: "", category: "local", body: "" });
   const [submitting, setSubmitting] = useState(false);
+  const isAdmin = user?.role === "admin";
 
   const load = async (cat) => {
     try {
@@ -57,6 +58,19 @@ const Members = () => {
     }
   };
 
+  const deletePost = async (e, postId) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!window.confirm("Remove this discussion and all its replies?")) return;
+    try {
+      await axios.delete(`${API}/posts/${postId}`, { withCredentials: true });
+      toast.success("Discussion removed.");
+      load(category);
+    } catch (err) {
+      toast.error(formatApiError(err.response?.data?.detail));
+    }
+  };
+
   return (
     <div data-testid="members-page">
       <section className="relative bg-navy-950 grain overflow-hidden">
@@ -80,6 +94,11 @@ const Members = () => {
                 <c.icon className="h-3.5 w-3.5 text-gold-light" /> {c.label}
               </span>
             ))}
+            {isAdmin && (
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-2 text-xs font-semibold text-gold-light" data-testid="admin-badge">
+                Admin
+              </span>
+            )}
           </div>
         </div>
       </section>
@@ -177,8 +196,19 @@ const Members = () => {
                   key={p.post_id}
                   to={`/members/${p.post_id}`}
                   data-testid={`post-card-${p.post_id}`}
-                  className="block rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5"
+                  className="relative block rounded-2xl border border-slate-200 bg-white p-6 transition-all duration-200 hover:border-gold/50 hover:shadow-lg hover:shadow-gold/5"
                 >
+                  {isAdmin && (
+                    <button
+                      type="button"
+                      data-testid={`delete-post-${p.post_id}`}
+                      onClick={(e) => deletePost(e, p.post_id)}
+                      className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                      aria-label={`Remove discussion ${p.title}`}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
                   <span
                     className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${
                       p.category === "local" ? "bg-gold-pale text-amber-800" : "bg-slate-100 text-slate-600"
@@ -186,7 +216,7 @@ const Members = () => {
                   >
                     {p.category_label}
                   </span>
-                  <h2 className="mt-3 font-serif text-xl font-semibold text-navy">{p.title}</h2>
+                  <h2 className="mt-3 font-serif text-xl font-semibold text-navy pr-10">{p.title}</h2>
                   <p className="mt-1.5 text-sm text-slate-600 line-clamp-2">{p.body}</p>
                   <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
                     <span className="font-medium text-slate-600">{p.author_name}</span>

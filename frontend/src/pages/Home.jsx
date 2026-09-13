@@ -48,7 +48,7 @@ const COMMUNITY = [
   {
     num: "01",
     title: "Gatherings",
-    text: "Regular meetings, virtual and local, woven from readings, reflection, music, dialogue, and shared silence — open to every worldview.",
+    text: "Local community groups organize and schedule their own Gatherings — the shape and content are entirely in each community's hands, from readings and music to dialogue and service, as long as they honor the values of United Pluralism. Connect in the member community to find others near you and put together one-time or regular Gatherings.",
     img: "https://images.unsplash.com/photo-1543807535-eceef0bc6599?q=80&w=1200&auto=format&fit=crop",
     alt: "Friends laughing together at a community gathering",
   },
@@ -63,8 +63,8 @@ const COMMUNITY = [
     num: "03",
     title: "Community Action",
     text: "Service, generosity, and care for the lonely — our values practiced in the world, not only spoken within it.",
-    img: "https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?q=80&w=1200&auto=format&fit=crop",
-    alt: "Group of people celebrating together at golden hour",
+    img: "https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1200&auto=format&fit=crop",
+    alt: "Volunteers packing and sharing food donations together",
   },
 ];
 

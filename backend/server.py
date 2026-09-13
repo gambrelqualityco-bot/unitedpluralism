@@ -597,6 +597,32 @@ async def create_reply(post_id: str, input: ReplyIn, user: dict = Depends(get_cu
     return doc
 
 
+# ---- Admin moderation ----
+async def require_admin(user: dict = Depends(get_current_user)) -> dict:
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin access required.")
+    return user
+
+
+@api_router.delete("/posts/{post_id}")
+async def delete_post(post_id: str, admin: dict = Depends(require_admin)):
+    result = await db.posts.delete_one({"post_id": post_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail="Discussion not found.")
+    await db.replies.delete_many({"post_id": post_id})
+    return {"status": "deleted"}
+
+
+@api_router.delete("/replies/{reply_id}")
+async def delete_reply(reply_id: str, admin: dict = Depends(require_admin)):
+    reply = await db.replies.find_one({"reply_id": reply_id})
+    if not reply:
+        raise HTTPException(status_code=404, detail="Reply not found.")
+    await db.replies.delete_one({"reply_id": reply_id})
+    await db.posts.update_one({"post_id": reply["post_id"]}, {"$inc": {"reply_count": -1}})
+    return {"status": "deleted"}
+
+
 @app.on_event("startup")
 async def startup():
     await db.members.create_index("email", unique=True)

@@ -155,8 +155,8 @@ const Observances = () => {
             <Reveal>
               <div className="overflow-hidden rounded-2xl border border-amber-200 shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=1400&auto=format&fit=crop"
-                  alt="Volunteers working together to pack and share food donations"
+                  src="https://images.unsplash.com/photo-1512909006721-3d6018887383?q=80&w=1400&auto=format&fit=crop"
+                  alt="A person offering a simply hand-wrapped gift to someone they care for"
                   loading="lazy"
                   className="h-80 lg:h-[440px] w-full object-cover"
                 />
@@ -176,6 +176,11 @@ const Observances = () => {
                 United Pluralists practice generosity and hospitality, seek out and care for the lonely, and serve
                 their wider communities — giving when we have abundance, and receiving without shame when we have
                 need.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-slate-700">
+                Giving in Charisel asks for no grand event. It is the season as countless traditions understand it —
+                a wrapped present for a friend, a meal shared with a neighbor, an hour of quiet help. Small acts,
+                done sincerely, are the heart of the season.
               </p>
               <div className="mt-8 grid sm:grid-cols-2 gap-4">
                 {["Generosity practiced daily", "Hospitality to strangers and neighbors", "Care for the lonely", "Community service, together"].map((item, i) => (

@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { formatDistanceToNow } from "date-fns";
-import { ArrowLeft, Loader2, MapPin, Send } from "lucide-react";
+import { ArrowLeft, Loader2, MapPin, Send, Trash2 } from "lucide-react";
 import { API, useAuth, formatApiError } from "../context/AuthContext";
 
 const MemberPost = () => {
   const { postId } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [reply, setReply] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const isAdmin = user?.role === "admin";
 
   const load = async () => {
     try {
@@ -40,6 +42,28 @@ const MemberPost = () => {
     }
   };
 
+  const deleteReply = async (replyId) => {
+    if (!window.confirm("Remove this reply?")) return;
+    try {
+      await axios.delete(`${API}/replies/${replyId}`, { withCredentials: true });
+      toast.success("Reply removed.");
+      load();
+    } catch (err) {
+      toast.error(formatApiError(err.response?.data?.detail));
+    }
+  };
+
+  const deletePost = async () => {
+    if (!window.confirm("Remove this discussion and all its replies?")) return;
+    try {
+      await axios.delete(`${API}/posts/${postId}`, { withCredentials: true });
+      toast.success("Discussion removed.");
+      navigate("/members");
+    } catch (err) {
+      toast.error(formatApiError(err.response?.data?.detail));
+    }
+  };
+
   if (!data) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center" data-testid="post-loading">
@@ -53,13 +77,25 @@ const MemberPost = () => {
   return (
     <div className="py-14 lg:py-20" data-testid="member-post-page">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
-        <Link
-          to="/members"
-          data-testid="back-to-board-link"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-amber-700 transition-colors"
-        >
-          <ArrowLeft className="h-4 w-4" /> Back to the community
-        </Link>
+        <div className="flex items-center justify-between gap-4">
+          <Link
+            to="/members"
+            data-testid="back-to-board-link"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gold hover:text-amber-700 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" /> Back to the community
+          </Link>
+          {isAdmin && (
+            <button
+              type="button"
+              data-testid="delete-post-button"
+              onClick={deletePost}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-red-600 transition-colors"
+            >
+              <Trash2 className="h-3.5 w-3.5" /> Remove discussion
+            </button>
+          )}
+        </div>
 
         <article className="mt-6 rounded-2xl border border-slate-200 bg-white p-7 lg:p-10 shadow-sm">
           <span
@@ -91,7 +127,18 @@ const MemberPost = () => {
         </h2>
         <div className="mt-4 space-y-4" data-testid="replies-list">
           {replies.map((r) => (
-            <div key={r.reply_id} className="rounded-2xl border border-slate-200 bg-white p-5" data-testid={`reply-${r.reply_id}`}>
+            <div key={r.reply_id} className="relative rounded-2xl border border-slate-200 bg-white p-5" data-testid={`reply-${r.reply_id}`}>
+              {isAdmin && (
+                <button
+                  type="button"
+                  data-testid={`delete-reply-${r.reply_id}`}
+                  onClick={() => deleteReply(r.reply_id)}
+                  className="absolute top-3 right-3 p-1.5 rounded-full text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors"
+                  aria-label="Remove reply"
+                >
+                  <Trash2 className="h-3.5 w-3.5" />
+                </button>
+              )}
               <div className="flex flex-wrap items-center gap-x-3 text-xs text-slate-500">
                 <span className="font-medium text-slate-700">{r.author_name}</span>
                 <span>{formatDistanceToNow(new Date(r.created_at), { addSuffix: true })}</span>
