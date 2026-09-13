@@ -14,7 +14,7 @@ import { Reveal, MaskedLine } from "../components/Reveal";
 import Marquee from "../components/Marquee";
 
 const HERO_IMG =
-  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1600&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2000&auto=format&fit=crop";
 
 const PRINCIPLES = [
   {
@@ -69,105 +69,97 @@ const COMMUNITY = [
 ];
 
 const Home = () => {
-  const imgRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: imgRef, offset: ["start end", "end start"] });
-  const yImg = useTransform(scrollYProgress, [0, 1], [-50, 50]);
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const yBg = useTransform(scrollYProgress, [0, 1], [0, 140]);
 
   return (
     <div data-testid="home-page">
       {/* HERO */}
-      <section className="relative overflow-hidden bg-navy-950 grain">
-        <div className="absolute -top-48 -left-48 h-[38rem] w-[38rem] rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 h-[26rem] w-[26rem] rounded-full bg-navy-600/40 blur-3xl pointer-events-none" />
+      <section ref={heroRef} className="relative min-h-[94vh] flex items-end overflow-hidden bg-navy-950 grain">
+        <motion.div style={{ y: yBg }} className="absolute inset-0" aria-hidden="true">
+          <img
+            src={HERO_IMG}
+            alt=""
+            className="h-[115%] w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/45 to-navy-950/20" />
+        </motion.div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 lg:pt-44 lg:pb-36 grid lg:grid-cols-12 gap-14 items-center">
-          <div className="lg:col-span-7">
-            <MaskedLine delay={0.15}>
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-44 pb-24 lg:pb-28">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-white p-2 shadow-xl ring-1 ring-white/40"
+          >
+            <img src="/assets/logo.png" alt="United Pluralism emblem" className="h-full w-full object-contain" />
+          </motion.div>
+
+          <div className="mt-7">
+            <MaskedLine delay={0.35}>
               <span
                 data-testid="hero-motto"
-                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold-light"
+                className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-navy-950/40 backdrop-blur px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-gold-light"
               >
                 Coniuncti ad futurum — United toward the future
               </span>
             </MaskedLine>
-
-            <h1 className="mt-7 font-serif text-white text-5xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight">
-              <MaskedLine delay={0.35}>Many beliefs.</MaskedLine>
-              <MaskedLine delay={0.47}>
-                <span className="italic text-gold-light">One shared</span>
-              </MaskedLine>
-              <MaskedLine delay={0.59}>humanity.</MaskedLine>
-            </h1>
-
-            <motion.p
-              data-testid="hero-statement"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-7 max-w-xl text-base sm:text-lg leading-relaxed text-slate-300"
-            >
-              Human beings do not need to share one theology, one religion, or any religion at all in
-              order to share profound responsibilities toward one another and the world.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 1.05, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-9 flex flex-wrap items-center gap-4"
-            >
-              <Link
-                to="/membership"
-                data-testid="hero-join-button"
-                className="group inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-gold/20 transition-all duration-300 hover:bg-amber-600 hover:shadow-gold/40 hover:-translate-y-0.5"
-              >
-                Join the Community
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              <Link
-                to="/about"
-                data-testid="hero-explore-button"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:border-gold-light hover:text-gold-light"
-              >
-                Explore Our Values
-              </Link>
-            </motion.div>
           </div>
 
-          <div className="lg:col-span-5 relative" ref={imgRef}>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 24 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
-              style={{ clipPath: "inset(0 round 1rem)" }}
+          <h1
+            className="mt-6 font-serif text-white text-5xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight max-w-4xl"
+            style={{ textShadow: "0 2px 30px rgba(5,12,26,0.55)" }}
+          >
+            <MaskedLine delay={0.5}>Many beliefs.</MaskedLine>
+            <MaskedLine delay={0.62}>
+              <span className="italic text-gold-light">One shared humanity.</span>
+            </MaskedLine>
+          </h1>
+
+          <motion.p
+            data-testid="hero-statement"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-7 max-w-xl text-base sm:text-lg leading-relaxed text-slate-100"
+            style={{ textShadow: "0 1px 16px rgba(5,12,26,0.6)" }}
+          >
+            Human beings do not need to share one theology, one religion, or any religion at all in
+            order to share profound responsibilities toward one another and the world.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-9 flex flex-wrap items-center gap-4"
+          >
+            <Link
+              to="/membership"
+              data-testid="hero-join-button"
+              className="group inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-gold/25 transition-all duration-300 hover:bg-amber-600 hover:shadow-gold/40 hover:-translate-y-0.5"
             >
-              <motion.img
-                src={HERO_IMG}
-                alt="A diverse group of friends with arms around each other, watching the sunset together"
-                style={{ y: yImg }}
-                className="h-[380px] lg:h-[520px] w-full object-cover scale-125"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/50 via-transparent to-transparent" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              transition={{ duration: 0.9, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute -bottom-8 -left-4 sm:-left-8 h-28 w-28 sm:h-32 sm:w-32 rounded-full bg-white p-2.5 shadow-xl ring-1 ring-slate-200"
+              Join the Community
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/about"
+              data-testid="hero-explore-button"
+              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 backdrop-blur px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:border-gold-light hover:text-gold-light"
             >
-              <img src="/assets/logo.png" alt="United Pluralism emblem" className="h-full w-full object-contain" />
-            </motion.div>
-          </div>
+              Explore Our Values
+            </Link>
+          </motion.div>
         </div>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.6, duration: 1 }}
-          className="relative pb-8 flex justify-center"
+          transition={{ delay: 1.8, duration: 1 }}
+          className="absolute bottom-6 right-6 sm:right-10 hidden sm:block"
         >
-          <ChevronDown className="h-5 w-5 text-slate-500 animate-bounce" />
+          <ChevronDown className="h-5 w-5 text-white/70 animate-bounce" />
         </motion.div>
       </section>
 

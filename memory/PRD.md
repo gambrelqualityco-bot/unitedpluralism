@@ -23,13 +23,21 @@ Exact covenant text + affirmation checkbox; exact membership intro and confirmat
 - Cart verified: add, increase, subtotal math, localStorage persistence.
 - Imagery audited: removed dinner-with-drinks hero and chapel-interior Charisel photo; all imagery now human-centered/nature, no alcohol, no religious iconography.
 
+## Implemented (2026-09-13, iteration 2)
+- Home hero rebuilt as a full-bleed, full-viewport image hero (diverse crowd celebrating under string lights — no alcohol, no religious iconography) with parallax drift, masked line reveal, emblem badge; no large empty color blocks.
+- Observances calendar now carries a note that the list is not exhaustive across religious and non-religious traditions, inviting members to share their own.
+- Merchandise storefront removed (products, cart, checkout all gone). /shop is now a slim "storefront opens soon" page; Shop links remain in nav/footer for the user to repoint to an external store (e.g. Bonfire).
+- Members-only area: email+password auth (JWT httpOnly cookies, bcrypt, 5-attempt/15-min lockout, refresh tokens). Becoming a member now requires a password and a signed math captcha + honeypot + IP rate limit — one step creates the login.
+- Discussion board at /members (protected): categories "Local Communities & Gatherings" and "Questions & Discussion"; create posts, view threads, reply. Posts show author name + location to spark local chapters.
+- New /login page; navbar is auth-aware (Sign In vs member chip + sign out). Admin account seeded (info@unitedpluralism.org).
+
 ## Backlog
-- P0: Real storefront checkout (user will replace placeholder products with real ones — Stripe when ready).
-- P1: Admin view/export of members and enquiries (currently MongoDB-only; no auth built).
-- P1: Gathering RSVP / events sign-up.
-- P2: Newsletter opt-in, chapter map, ceremony request scheduling.
+- P0: Point Shop links to the external Bonfire store URL (user to provide).
+- P1: Password reset flow (forgot-password endpoint exists in playbook, not built).
+- P1: Board moderation tools for admin (delete posts/replies).
+- P2: Member directory opt-in, Gathering RSVPs, email notifications for replies.
 
 ## Next Tasks
-1. Wire real products into Shop (replace PRODUCTS array, same shape).
-2. Add Stripe checkout when fulfillment launches.
-3. Optional: protected admin dashboard for member/enquiry lists.
+1. Swap Shop links to the external store URL when ready.
+2. Add forgot/reset password.
+3. Admin moderation on the board.

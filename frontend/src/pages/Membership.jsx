@@ -1,21 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, Loader2, ArrowRight } from "lucide-react";
+import { CheckCircle2, Loader2, ArrowRight, RefreshCw } from "lucide-react";
 import { Reveal, MaskedLine } from "../components/Reveal";
-
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+import { API, useAuth, formatApiError } from "../context/AuthContext";
 
 const COVENANT =
   "I affirm the inherent dignity of every person. I respect the bodily autonomy and conscience of others as I ask them to respect mine. I will seek truth honestly and remain willing to learn. I will allow greater knowledge and compassion to change my understanding. I will strive to choose compassion over cruelty and justice over indifference. I will respect human diversity and reject hierarchies of human worth. I will give when I have abundance and receive without shame when I have need. I will care for the living world we share. I will remember those who came before me. I will consider those who will come after me. I will defend the freedom of others to seek meaning differently from me, including the freedom to live without religion. I will work toward a world in which more people are free to flourish. I will remain mindful that I may be wrong and willing to grow when greater understanding requires it. I join others not because our beliefs are identical, but because our humanity is shared.";
 
 const Membership = () => {
-  const [form, setForm] = useState({ first_name: "", last_name: "", email: "", location: "" });
+  const { setUser } = useAuth();
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    location: "",
+    password: "",
+    captcha_answer: "",
+    website: "",
+  });
+  const [captcha, setCaptcha] = useState(null);
   const [affirmed, setAffirmed] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [joined, setJoined] = useState(false);
+
+  const loadCaptcha = async () => {
+    try {
+      const { data } = await axios.get(`${API}/captcha`);
+      setCaptcha(data);
+      setForm((f) => ({ ...f, captcha_answer: "" }));
+    } catch {
+      toast.error("Could not load the spam check. Please refresh the page.");
+    }
+  };
+
+  useEffect(() => {
+    loadCaptcha();
+  }, []);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
@@ -27,12 +50,28 @@ const Membership = () => {
     }
     setSubmitting(true);
     try {
-      await axios.post(`${API}/membership`, { ...form, covenant_affirmed: affirmed });
+      const { data } = await axios.post(
+        `${API}/membership`,
+        {
+          first_name: form.first_name,
+          last_name: form.last_name,
+          email: form.email,
+          location: form.location,
+          password: form.password,
+          covenant_affirmed: affirmed,
+          captcha_id: captcha?.captcha_id || "",
+          captcha_answer: form.captcha_answer,
+          website: form.website,
+        },
+        { withCredentials: true }
+      );
+      if (data.user) setUser(data.user);
       setJoined(true);
       toast.success("Welcome to United Pluralism.");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      toast.error(err.response?.data?.detail || "Something went wrong. Please try again.");
+      toast.error(formatApiError(err.response?.data?.detail));
+      loadCaptcha();
     } finally {
       setSubmitting(false);
     }
@@ -58,6 +97,13 @@ const Membership = () => {
               spirits, an afterlife, or any supernatural claim, nor does it require the rejection of such beliefs.
               You may retain other religious or philosophical affiliations. Belonging is based on sincere
               participation in our shared values, not on passing a doctrinal test.
+            </p>
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-400">
+              Joining creates your sign-in for the member community, where members form local groups, plan
+              celebrations, and talk together. Already joined?{" "}
+              <Link to="/login" data-testid="membership-signin-link" className="font-semibold text-gold-light hover:text-gold">
+                Sign in here.
+              </Link>
             </p>
           </Reveal>
         </div>
@@ -86,18 +132,18 @@ const Membership = () => {
                 </p>
                 <div className="mt-8 flex flex-wrap justify-center gap-4">
                   <Link
-                    to="/observances"
-                    data-testid="confirmation-observances-button"
+                    to="/members"
+                    data-testid="confirmation-members-button"
                     className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-amber-700"
                   >
-                    Explore Observances <ArrowRight className="h-4 w-4" />
+                    Enter the Member Community <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
-                    to="/contact"
-                    data-testid="confirmation-contact-button"
+                    to="/observances"
+                    data-testid="confirmation-observances-button"
                     className="inline-flex items-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-navy transition-colors hover:border-gold hover:text-gold"
                   >
-                    Find a Gathering
+                    Explore Observances
                   </Link>
                 </div>
               </motion.div>
@@ -148,6 +194,7 @@ const Membership = () => {
                     data-testid="email-input"
                     type="email"
                     required
+                    autoComplete="email"
                     value={form.email}
                     onChange={set("email")}
                     className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
@@ -168,6 +215,64 @@ const Membership = () => {
                     className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
                     placeholder="City, region, or chapter"
                   />
+                  <p className="mt-1.5 text-xs text-slate-400">
+                    Sharing your area helps members near you form local communities and Gatherings.
+                  </p>
+                </div>
+
+                <div className="mt-6">
+                  <label htmlFor="password" className="block text-sm font-semibold text-navy">Create a Password</label>
+                  <input
+                    id="password"
+                    data-testid="password-input"
+                    type="password"
+                    required
+                    minLength={8}
+                    autoComplete="new-password"
+                    value={form.password}
+                    onChange={set("password")}
+                    className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
+                    placeholder="At least 8 characters"
+                  />
+                  <p className="mt-1.5 text-xs text-slate-400">This becomes your sign-in for the member community.</p>
+                </div>
+
+                <input
+                  type="text"
+                  name="website"
+                  value={form.website}
+                  onChange={set("website")}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+
+                <div className="mt-6">
+                  <label htmlFor="captcha-answer" className="block text-sm font-semibold text-navy">
+                    Quick spam check — {captcha ? captcha.question : "loading…"}
+                  </label>
+                  <div className="mt-2 flex items-center gap-3">
+                    <input
+                      id="captcha-answer"
+                      data-testid="captcha-input"
+                      type="text"
+                      required
+                      inputMode="numeric"
+                      value={form.captcha_answer}
+                      onChange={set("captcha_answer")}
+                      className="w-32 rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
+                      placeholder="Answer"
+                    />
+                    <button
+                      type="button"
+                      data-testid="captcha-refresh-button"
+                      onClick={loadCaptcha}
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-gold transition-colors"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5" /> New question
+                    </button>
+                  </div>
                 </div>
 
                 <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6">

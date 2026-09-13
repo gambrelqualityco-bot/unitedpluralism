@@ -239,6 +239,18 @@ const Observances = () => {
               </Reveal>
             ))}
           </div>
+
+          <Reveal delay={0.1}>
+            <p
+              className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 px-6 py-5 text-sm leading-relaxed text-slate-600"
+              data-testid="calendar-note"
+            >
+              This is not a complete list of shared observances. United Pluralists honor days drawn from many
+              religious, cultural, and non-religious traditions, and no single calendar could account for them
+              all. Members are encouraged to bring, share, and teach their own observances at Gatherings —
+              personal and inherited days are as much a part of our shared year as any listed here.
+            </p>
+          </Reveal>
         </div>
       </section>
     </div>
