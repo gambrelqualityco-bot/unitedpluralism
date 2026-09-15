@@ -1,10 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
-import { toast } from "sonner";
-import { Loader2, Video, MapPin, Music, BookOpen, MessagesSquare, HandHeart, Mail } from "lucide-react";
+import { Video, MapPin, Music, BookOpen, MessagesSquare, HandHeart, Mail } from "lucide-react";
 import { Reveal, MaskedLine, PageHero } from "../components/Reveal";
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const HERO_IMG =
   "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2000&auto=format&fit=crop";
@@ -17,12 +13,7 @@ const GATHERING_ELEMENTS = [
 ];
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", topic: "General inquiry", message: "" });
-  const [submitting, setSubmitting] = useState(false);
 
-  const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const submit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
     try {
@@ -103,8 +94,7 @@ const Contact = () => {
                   <h3 className="font-serif text-xl font-semibold text-navy">Ceremonies &amp; milestones</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-700">
                     United Pluralism marks meaningful human transitions with personalized ceremonies: welcomings,
-                    life milestones, and memorials that respect the beliefs of those they honor. Use the form below
-                    and choose &ldquo;Ceremony request.&rdquo;
+                    life milestones, and memorials that respect the beliefs of those they honor. Email us at info@unitedpluralism.org to begin a conversation about a ceremony.
                   </p>
                 </div>
               </Reveal>
@@ -113,112 +103,48 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* CONTACT FORM */}
-      <section className="py-20 lg:py-28 bg-slate-50 border-t border-slate-200" data-testid="contact-form-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-5">
-            <Reveal>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold">Reach out</p>
-              <h2 className="mt-4 font-serif text-3xl sm:text-4xl tracking-tight text-navy">We would love to hear from you</h2>
-              <p className="mt-5 text-base leading-relaxed text-slate-600">
-                Questions about the community, requests for support, or ceremony inquiries: every message reaches
-                a real person.
-              </p>
-              <a
-                href="mailto:info@unitedpluralism.org"
-                data-testid="contact-email-link"
-                className="mt-7 inline-flex items-center gap-3 rounded-full border border-slate-300 bg-white px-6 py-3.5 text-sm font-semibold text-navy transition-colors hover:border-gold hover:text-gold"
-              >
-                <Mail className="h-4 w-4" /> info@unitedpluralism.org
-              </a>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-7">
-            <Reveal delay={0.15}>
-              <form
-                onSubmit={submit}
-                className="rounded-3xl border border-slate-200 bg-white p-8 lg:p-10 shadow-sm"
-                data-testid="contact-form"
-              >
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label htmlFor="contact-name" className="block text-sm font-semibold text-navy">Name</label>
-                    <input
-                      id="contact-name"
-                      data-testid="contact-name-input"
-                      type="text"
-                      required
-                      value={form.name}
-                      onChange={set("name")}
-                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
-                      placeholder="Your name"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="contact-email" className="block text-sm font-semibold text-navy">Email Address</label>
-                    <input
-                      id="contact-email"
-                      data-testid="contact-email-input"
-                      type="email"
-                      required
-                      value={form.email}
-                      onChange={set("email")}
-                      className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
-                      placeholder="you@example.org"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <label htmlFor="contact-topic" className="block text-sm font-semibold text-navy">Topic</label>
-                  <select
-                    id="contact-topic"
-                    data-testid="contact-topic-select"
-                    value={form.topic}
-                    onChange={set("topic")}
-                    className="mt-2 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20"
-                  >
-                    <option>General inquiry</option>
-                    <option>Community support</option>
-                    <option>Ceremony request</option>
-                    <option>Gatherings &amp; chapters</option>
-                  </select>
-                </div>
-
-                <div className="mt-6">
-                  <label htmlFor="contact-message" className="block text-sm font-semibold text-navy">Message</label>
-                  <textarea
-                    id="contact-message"
-                    data-testid="contact-message-input"
-                    required
-                    rows={5}
-                    value={form.message}
-                    onChange={set("message")}
-                    className="mt-2 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none transition-all focus:border-gold focus:ring-2 focus:ring-gold/20 resize-y"
-                    placeholder="How can we help?"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  data-testid="contact-submit-button"
-                  disabled={submitting}
-                  className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-gold/20 transition-all duration-300 hover:bg-amber-700 hover:-translate-y-0.5 disabled:opacity-60 disabled:translate-y-0"
-                >
-                  {submitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" /> Sending&hellip;
-                    </>
-                  ) : (
-                    "Send Message"
-                  )}
-                </button>
-              </form>
-            </Reveal>
-          </div>
+      {/* CONTACT */}
+<section
+  className="py-20 lg:py-28 bg-slate-50 border-t border-slate-200"
+  data-testid="contact-section"
+>
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <Reveal>
+      <div className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 text-center shadow-sm">
+        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-gold-pale">
+          <Mail className="h-6 w-6 text-gold" />
         </div>
-      </section>
+
+        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
+          Reach out
+        </p>
+
+        <h2 className="mt-4 font-serif text-3xl sm:text-4xl tracking-tight text-navy">
+          We would love to hear from you
+        </h2>
+
+        <p className="mt-5 mx-auto max-w-2xl text-base leading-relaxed text-slate-600">
+          Questions about United Pluralism, Gatherings, membership,
+          ceremonies, or community support? Email us and a real person
+          will respond as soon as possible.
+        </p>
+
+        <a
+          href="mailto:info@unitedpluralism.org?subject=United%20Pluralism%20Inquiry"
+          data-testid="contact-email-link"
+          className="mt-8 inline-flex items-center justify-center gap-3 rounded-full bg-gold px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-gold/20 transition-all duration-300 hover:bg-amber-700 hover:-translate-y-0.5"
+        >
+          <Mail className="h-4 w-4" />
+          Email United Pluralism
+        </a>
+
+        <p className="mt-5 text-sm text-slate-500">
+          info@unitedpluralism.org
+        </p>
+      </div>
+    </Reveal>
+  </div>
+</section>
     </div>
   );
 };
